@@ -30,6 +30,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @RequestMapping("/user/list")
+    public R userorders() {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderSn("2021061601");  // 订单号
+        return R.ok().put("orders", Arrays.asList(orderEntity));
+    }
     /**
      * 列表
      */
