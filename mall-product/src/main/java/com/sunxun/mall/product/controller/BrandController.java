@@ -1,8 +1,10 @@
 package com.sunxun.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,26 @@ import com.sunxun.common.utils.R;
 public class BrandController {
     @Autowired
     private BrandService brandService;
+
+    @RequestMapping("/test")
+    public R test () {
+        BrandEntity brandEntity = new BrandEntity();
+        brandEntity.setName("蜜雪冰城");
+        brandEntity.setDescript("蜜雪冰城甜蜜蜜");
+        brandService.save(brandEntity);
+        brandEntity.setDescript("Mixue ice-cream and tea.");
+        brandService.update();
+
+        QueryWrapper<BrandEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("descript", "中国");
+        List<BrandEntity> brands = brandService.list(queryWrapper);
+
+//        return  R.ok().put("brand", brandEntity);
+        brandService.removeById(3l);
+        BrandEntity deletedBrand = brandService.getById(3l);
+        return R.ok().put("brand", brandEntity);
+//        return R.ok().put("brand", deletedBrand);
+    }
 
     /**
      * 列表

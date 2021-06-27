@@ -1,9 +1,11 @@
 package com.sunxun.mall.user.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import com.sunxun.mall.user.feign.OrderFeignService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,11 +37,10 @@ public class MemberController {
     OrderFeignService orderFeignService;
     @RequestMapping("/orders")
     public R test() {
-        MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setNickname("张三");
-
-        R userOrders = orderFeignService.userorders();
-        return R.ok().put("user", memberEntity).put("orders", userOrders.get("orders"));
+//        MemberEntity memberEntity = new MemberEntity();
+//        memberEntity.setNickname("孙逊");
+        R userOrders = orderFeignService.userorders(1l);
+        return R.ok().put("orders", userOrders.get("orders"));
     }
     /**
      * 列表

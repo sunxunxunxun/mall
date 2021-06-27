@@ -1,8 +1,10 @@
 package com.sunxun.mall.order.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -44,9 +46,14 @@ public class OrderController {
 
     @RequestMapping("/user/list")
     public R userorders() {
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setOrderSn("2021061601");  // 订单号
-        return R.ok().put("orders", Arrays.asList(orderEntity));
+//        OrderEntity orderEntity = new OrderEntity();
+//        orderEntity.setOrderSn("2021061601");  // 订单号
+        // 获取指定id用户的订单
+        QueryWrapper<OrderEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("member_id", 1l);
+//        System.out.println(id);
+        List<OrderEntity> orderEntities = orderService.list(queryWrapper);
+        return R.ok().put("orders", orderEntities);
     }
     /**
      * 列表
